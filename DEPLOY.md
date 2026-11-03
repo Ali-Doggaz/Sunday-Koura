@@ -38,8 +38,9 @@ This creates the Neon project `sunday-koura` (Frankfurt) and links the Vercel pr
    - Privacy policy URL: `https://sunday-koura.vercel.app/confidentialite`
    - User data deletion: "Instructions URL", `https://sunday-koura.vercel.app/suppression-donnees`
    - Add an app icon and a category.
-4. Switch the app to **Live** mode. The default `email` and `public_profile` permissions don't need app review.
-5. Then run:
+4. Under **Use cases → Facebook Login → Permissions**, add `email`.
+5. Deploy, then sign in once with Facebook on the live site (app admins can sign in before publishing). Meta requires this test call before the **Publish** button turns on, and it can take up to 24 hours to register. Then publish the app. Basic `email` + `public_profile` don't need App Review.
+6. Then run:
    ```bash
    npx vercel env add FACEBOOK_CLIENT_ID production       # the App ID
    npx vercel env add FACEBOOK_CLIENT_SECRET production   # the App secret

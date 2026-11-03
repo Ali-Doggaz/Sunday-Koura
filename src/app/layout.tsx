@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { SignOutButton } from "@/components/sign-out-button";
@@ -20,8 +21,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col bg-muted/40">
         <header className="border-b bg-background">
           <div className="mx-auto flex h-14 max-w-2xl items-center justify-between gap-2 px-4">
-            <Link href="/" className="shrink-0 font-semibold tracking-tight whitespace-nowrap">
-              ⚽ Sunday Koura
+            <Link
+              href="/"
+              className="flex shrink-0 items-center gap-2 font-semibold tracking-tight whitespace-nowrap"
+            >
+              <Image
+                src="/logo.svg"
+                alt=""
+                width={32}
+                height={32}
+                className="rounded-md"
+                priority
+              />
+              Sunday Koura
             </Link>
             <Suspense fallback={null}>
               <ViewerMenu />
