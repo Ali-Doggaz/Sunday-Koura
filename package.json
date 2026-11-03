@@ -13,7 +13,10 @@
     "db:up": "docker compose up -d",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "infra:setup": "scripts/setup-infra.sh",
+    "deploy": "scripts/deploy.sh",
+    "logs": "vercel logs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -42,10 +45,12 @@
     "drizzle-kit": "^0.31.11",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "neonctl": "^8.18.0",
     "prettier": "^3.9.10",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5",
+    "vercel": "^65.10.0",
     "vitest": "^5.1.0"
   },
   "allowScripts": {
