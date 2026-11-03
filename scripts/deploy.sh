@@ -7,6 +7,6 @@ npm run lint
 
 echo "Migrating the production database…"
 # Migrations use the direct (non-pooled) endpoint.
-DATABASE_URL="$(npx neonctl connection-string --database-name sunday_koura)" npx drizzle-kit migrate
+DATABASE_URL="$(npx neonctl connection-string)" npx drizzle-kit migrate
 
 npx vercel deploy --prod
