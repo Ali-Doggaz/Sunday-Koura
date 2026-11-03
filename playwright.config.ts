@@ -28,7 +28,6 @@ export default defineConfig({
       E2E_TEST_LOGIN: "true",
       ADMIN_EMAILS: "admin@test.local",
       GOOGLE_CLIENT_ID: "",
-      FACEBOOK_CLIENT_ID: "",
     },
   },
 });

@@ -12,8 +12,8 @@ export default function DataDeletionPage() {
         </li>
       </ol>
       <p>
-        Tu peux aussi retirer l&apos;accès de Sunday Koura dans les paramètres de ton compte
-        Facebook (Applications et sites web) ou Google (Sécurité → Applications tierces).
+        Tu peux aussi retirer l&apos;accès de Sunday Koura dans les paramètres de ton compte Google
+        (Sécurité → Applications tierces).
       </p>
     </article>
   );

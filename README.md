@@ -2,7 +2,7 @@
 
 Inscriptions aux matchs de foot du dimanche: one tap to join, a waiting list, and admins who manage everything.
 
-- **Stack**: Next.js 16 (App Router, Server Actions) · Better Auth (Google, Facebook) · Drizzle + Postgres · Tailwind/shadcn
+- **Stack**: Next.js 16 (App Router, Server Actions) · Better Auth (Google) · Drizzle + Postgres · Tailwind/shadcn
 - **Hosting**: Vercel (Hobby) + Neon (Free). Both are free and sleep when idle. See [DEPLOY.md](DEPLOY.md).
 - **Spec**: [SPEC.md](SPEC.md)
 

@@ -6,8 +6,7 @@ export default function PrivacyPage() {
       <h1 className="text-2xl font-semibold">Politique de confidentialité</h1>
       <p>
         Sunday Koura sert uniquement à organiser des matchs de foot entre amis. Quand tu te
-        connectes avec Google ou Facebook, nous enregistrons ton nom, ton adresse e-mail et ta photo
-        de profil.
+        connectes avec Google, nous enregistrons ton nom, ton adresse e-mail et ta photo de profil.
       </p>
       <p>
         Nous enregistrons aussi les matchs auxquels tu t&apos;inscris, les invités que tu ajoutes,

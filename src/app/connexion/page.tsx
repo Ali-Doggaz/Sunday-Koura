@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { enabledProviders } from "@/lib/auth";
+import { googleEnabled } from "@/lib/auth";
 import { env } from "@/lib/env";
 import { SignInPanel } from "./sign-in-panel";
 
@@ -25,6 +25,6 @@ async function Panel({ searchParams }: Pick<PageProps<"/connexion">, "searchPara
   // Only same-site paths, so the link can't redirect elsewhere.
   const safeNext = typeof next === "string" && /^\/(?!\/)/.test(next) ? next : "/";
   return (
-    <SignInPanel providers={enabledProviders} next={safeNext} testLogin={env.E2E_TEST_LOGIN} />
+    <SignInPanel googleEnabled={googleEnabled} next={safeNext} testLogin={env.E2E_TEST_LOGIN} />
   );
 }

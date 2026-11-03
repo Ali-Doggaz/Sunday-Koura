@@ -6,17 +6,11 @@ import { db } from "../db";
 import * as schema from "../db/schema";
 import { env } from "./env";
 
-// Only providers with credentials are enabled, so local dev works without OAuth apps.
-const socialProviders = {
-  ...(env.GOOGLE_CLIENT_ID &&
-    env.GOOGLE_CLIENT_SECRET && {
-      google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET },
-    }),
-  ...(env.FACEBOOK_CLIENT_ID &&
-    env.FACEBOOK_CLIENT_SECRET && {
-      facebook: { clientId: env.FACEBOOK_CLIENT_ID, clientSecret: env.FACEBOOK_CLIENT_SECRET },
-    }),
-};
+// Google is enabled only with credentials, so local dev works without an OAuth app.
+export const googleEnabled = Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET);
+const socialProviders = googleEnabled
+  ? { google: { clientId: env.GOOGLE_CLIENT_ID!, clientSecret: env.GOOGLE_CLIENT_SECRET! } }
+  : {};
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "pg", schema }),
@@ -42,5 +36,3 @@ export const auth = betterAuth({
     nextCookies(),
   ],
 });
-
-export const enabledProviders = Object.keys(socialProviders) as ("google" | "facebook")[];

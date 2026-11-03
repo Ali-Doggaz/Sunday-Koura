@@ -1,6 +1,6 @@
 # Deploying Sunday Koura
 
-Everything runs through `npm` scripts that drive the Neon and Vercel CLIs. Only the Google and Facebook apps need clicking in a web console, because neither company offers a CLI or API for that.
+Everything runs through `npm` scripts that drive the Neon and Vercel CLIs. Only the Google OAuth app needs clicking in a web console, because Google offers no CLI or API for that.
 
 ## 1. Sign in to the CLIs (once)
 
@@ -30,25 +30,7 @@ This creates the Neon project `sunday-koura` (Frankfurt) and links the Vercel pr
    npx vercel env add GOOGLE_CLIENT_SECRET production
    ```
 
-## 4. Facebook sign-in (about 10 min)
-
-1. Go to https://developers.facebook.com/apps → **Create app**. Use case: "Authenticate and request data from users with Facebook Login".
-2. **Facebook Login → Settings**: Valid OAuth redirect URI `https://sunday-koura.vercel.app/api/auth/callback/facebook`.
-3. **App settings → Basic**:
-   - Privacy policy URL: `https://sunday-koura.vercel.app/confidentialite`
-   - User data deletion: "Instructions URL", `https://sunday-koura.vercel.app/suppression-donnees`
-   - Add an app icon and a category.
-4. Under **Use cases → Facebook Login → Permissions**, add `email`.
-5. Deploy, then sign in once with Facebook on the live site (app admins can sign in before publishing). Meta requires this test call before the **Publish** button turns on, and it can take up to 24 hours to register. Then publish the app. Basic `email` + `public_profile` don't need App Review.
-6. Then run:
-   ```bash
-   npx vercel env add FACEBOOK_CLIENT_ID production       # the App ID
-   npx vercel env add FACEBOOK_CLIENT_SECRET production   # the App secret
-   ```
-
-Note: a Facebook account created with a phone number and no email can't sign in, because the app needs an email to identify players. Those players can use Google instead.
-
-## 5. Deploy
+## 4. Deploy
 
 ```bash
 npm run deploy   # typecheck + lint, migrate the Neon database, deploy to production

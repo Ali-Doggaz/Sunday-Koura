@@ -5,30 +5,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
-const PROVIDER_LABELS = { google: "Continuer avec Google", facebook: "Continuer avec Facebook" };
-
 type Props = {
-  providers: (keyof typeof PROVIDER_LABELS)[];
+  googleEnabled: boolean;
   next: string;
   testLogin: boolean;
 };
 
-export function SignInPanel({ providers, next, testLogin }: Props) {
+export function SignInPanel({ googleEnabled, next, testLogin }: Props) {
   const [error, setError] = useState<string | null>(null);
 
-  async function signInWith(provider: keyof typeof PROVIDER_LABELS) {
-    const { error } = await authClient.signIn.social({ provider, callbackURL: next });
+  async function signInWithGoogle() {
+    const { error } = await authClient.signIn.social({ provider: "google", callbackURL: next });
     if (error) setError(error.message ?? "Connexion impossible.");
   }
 
   return (
     <div className="flex flex-col gap-3">
-      {providers.map((provider) => (
-        <Button key={provider} size="lg" variant="outline" onClick={() => signInWith(provider)}>
-          {PROVIDER_LABELS[provider]}
+      {googleEnabled && (
+        <Button size="lg" variant="outline" onClick={signInWithGoogle}>
+          Continuer avec Google
         </Button>
-      ))}
-      {providers.length === 0 && !testLogin && (
+      )}
+      {!googleEnabled && !testLogin && (
         <p className="text-sm text-muted-foreground">Aucun moyen de connexion configuré.</p>
       )}
       {testLogin && <TestSignIn next={next} onError={setError} />}

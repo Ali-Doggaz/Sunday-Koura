@@ -3,7 +3,7 @@
 **Objective**: a web app where a football group of 90+ people signs up to games in one tap, with a player limit, a waiting list and admin control.
 
 ## Rules
-- Accounts are required. Sign-in is with Google or Facebook only.
+- Accounts are required. Sign-in is with Google only.
 - Anyone can view games. Signing in is required to join.
 - Only admins create, edit, duplicate (+7 days), lock and cancel games.
 - A game has N spots. Confirmed and "à confirmer" players fill them. Later sign-ups join the waiting list, in sign-up order.
