@@ -23,6 +23,8 @@ export const auth = betterAuth({
   socialProviders,
   // Test-only: lets end-to-end tests sign in without real OAuth.
   emailAndPassword: { enabled: env.E2E_TEST_LOGIN },
+  // Tests sign in many players from one IP, which the sign-in rate limit would block.
+  rateLimit: { enabled: !env.E2E_TEST_LOGIN },
   databaseHooks: {
     user: {
       create: {
