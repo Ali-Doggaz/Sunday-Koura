@@ -19,12 +19,12 @@ test("full game flow: sign-ups, waiting list, promotion, guests, admin and bans"
   const ali = await signedInPage(browser, "Ali");
   await ali.goto(gameUrl);
   await ali.getByRole("button", { name: "Je viens !" }).click();
-  await expect(ali.getByText("Tu es inscrit ✅")).toBeVisible();
+  await expect(ali.getByText("Tu es inscrit")).toBeVisible();
 
   const bilal = await signedInPage(browser, "Bilal");
   await bilal.goto(gameUrl);
   await bilal.getByRole("button", { name: "Je viens !" }).click();
-  await expect(bilal.getByText("Tu es inscrit ✅")).toBeVisible();
+  await expect(bilal.getByText("Tu es inscrit")).toBeVisible();
 
   const chafik = await signedInPage(browser, "Chafik");
   await chafik.goto(gameUrl);
@@ -46,11 +46,13 @@ test("full game flow: sign-ups, waiting list, promotion, guests, admin and bans"
   await chafik.reload();
   await expect(chafik.getByText("Une place s'est libérée pour toi !")).toBeVisible();
   await chafik.getByRole("button", { name: "Confirmer ma place" }).click();
-  await expect(chafik.getByText("Tu es inscrit ✅")).toBeVisible();
+  await expect(chafik.getByText("Tu es inscrit")).toBeVisible();
 
   // Admin removes Bilal (Karim the guest moves up) and adds Ali back (waitlisted).
   await admin.reload();
-  const bilalRow = admin.getByTestId("entry").filter({ hasText: /^\d+\.Bilal/ });
+  const bilalRow = admin
+    .getByTestId("entry")
+    .filter({ has: admin.getByText("Bilal", { exact: true }) });
   acceptNextDialog(admin);
   await bilalRow.getByRole("button", { name: "Retirer" }).click();
   await expect(admin.getByText("Karim")).toBeVisible();

@@ -1,5 +1,6 @@
-import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
 import type { Game, ParticipationStatus } from "@/db/schema";
+import { cn } from "@/lib/utils";
 
 export const STATUS_LABELS: Record<ParticipationStatus, string> = {
   confirmed: "Inscrit",
@@ -7,20 +8,35 @@ export const STATUS_LABELS: Record<ParticipationStatus, string> = {
   waitlisted: "Liste d'attente",
 };
 
-export function GameBadges({ game, taken }: { game: Game; taken: number }) {
-  if (game.cancelledAt) return <Badge variant="destructive">Annulé</Badge>;
+const chip = "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold";
+
+/** `taken` is omitted where the page already says the game is full. */
+export function GameBadges({ game, taken }: { game: Game; taken?: number }) {
+  if (game.cancelledAt) {
+    return <span className={cn(chip, "bg-destructive/15 text-destructive")}>Annulé</span>;
+  }
   return (
     <>
-      {game.locked && <Badge variant="outline">Inscriptions fermées</Badge>}
-      {taken >= game.maxPlayers && <Badge variant="secondary">Complet</Badge>}
+      {game.locked && <span className={cn(chip, "border")}>Inscriptions fermées</span>}
+      {taken !== undefined && taken >= game.maxPlayers && (
+        <span className={cn(chip, "bg-secondary")}>Complet</span>
+      )}
     </>
   );
 }
 
 export function StatusBadge({ status }: { status: ParticipationStatus }) {
   return (
-    <Badge variant={status === "pending_confirmation" ? "destructive" : "default"}>
+    <span
+      className={cn(
+        chip,
+        status === "confirmed" && "bg-success/15 text-success",
+        status === "pending_confirmation" && "bg-primary/15 text-primary",
+        status === "waitlisted" && "bg-secondary text-muted-foreground",
+      )}
+    >
+      {status === "confirmed" && <Check className="size-3" strokeWidth={3} aria-hidden />}
       {STATUS_LABELS[status]}
-    </Badge>
+    </span>
   );
 }

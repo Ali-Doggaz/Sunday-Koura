@@ -49,3 +49,27 @@ export function formatGameDate(date: Date, timeZone: string): string {
   }).format(date);
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+export type DateParts = {
+  weekday: string; // "Dimanche"
+  weekdayShort: string; // "DIM"
+  day: string; // "8"
+  month: string; // "novembre"
+  monthShort: string; // "NOV", "JUIN", "JUIL"
+  time: string; // "17:00"
+};
+
+/** The pieces the game cards and headers lay out separately. */
+export function dateParts(date: Date, timeZone: string): DateParts {
+  const part = (options: Intl.DateTimeFormatOptions) =>
+    new Intl.DateTimeFormat("fr-FR", { timeZone, ...options }).format(date);
+  const weekday = part({ weekday: "long" });
+  return {
+    weekday: weekday.charAt(0).toUpperCase() + weekday.slice(1),
+    weekdayShort: weekday.slice(0, 3).toUpperCase(),
+    day: part({ day: "numeric" }),
+    month: part({ month: "long" }),
+    monthShort: part({ month: "short" }).replace(".", "").toUpperCase(),
+    time: part({ hour: "2-digit", minute: "2-digit" }),
+  };
+}

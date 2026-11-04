@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatGameDate, fromLocalInput, toLocalInput } from "./dates";
+import { dateParts, formatGameDate, fromLocalInput, toLocalInput } from "./dates";
 
 const PARIS = "Europe/Paris";
 
@@ -32,5 +32,26 @@ describe("formatGameDate", () => {
     expect(formatGameDate(new Date("2026-12-06T09:00:00Z"), PARIS)).toBe(
       "Dimanche 6 décembre à 10:00",
     );
+  });
+});
+
+describe("dateParts", () => {
+  it("splits a date into French display pieces", () => {
+    expect(dateParts(new Date("2026-11-08T16:00:00Z"), PARIS)).toEqual({
+      weekday: "Dimanche",
+      weekdayShort: "DIM",
+      day: "8",
+      month: "novembre",
+      monthShort: "NOV",
+      time: "17:00",
+    });
+  });
+
+  it("keeps French month abbreviations distinct (juin vs juillet)", () => {
+    const month = (iso: string) => dateParts(new Date(iso), PARIS).monthShort;
+    expect(month("2026-06-07T16:00:00Z")).toBe("JUIN");
+    expect(month("2026-07-05T16:00:00Z")).toBe("JUIL");
+    expect(month("2026-02-01T16:00:00Z")).toBe("FÉVR");
+    expect(month("2026-12-06T16:00:00Z")).toBe("DÉC");
   });
 });
