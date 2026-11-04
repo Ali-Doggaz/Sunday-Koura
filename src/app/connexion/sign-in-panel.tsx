@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { GoogleLogo } from "@/components/google-logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
@@ -20,9 +21,14 @@ export function SignInPanel({ googleEnabled, next, testLogin }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       {googleEnabled && (
-        <Button size="lg" variant="outline" onClick={signInWithGoogle}>
+        <Button
+          size="lg"
+          onClick={signInWithGoogle}
+          className="h-13 w-full gap-3 rounded-xl bg-white text-base font-semibold text-zinc-900 hover:bg-zinc-200"
+        >
+          <GoogleLogo className="size-5" />
           Continuer avec Google
         </Button>
       )}
